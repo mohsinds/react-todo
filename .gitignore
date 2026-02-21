@@ -1,0 +1,55 @@
+# dependencies
+node_modules/
+
+# local env files
+.env
+.env.*
+
+# build output
+dist/
+build/
+
+# misc
+.DS_Store
+*.log
+
+# test coverage
+coverage/
+
+# IDE/Editor folders
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+Thumbs.db
+
+# lockfiles (optional, if not using)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# npm debug files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Mac system files
+*.DS_Store
+
+# Parcel cache
+.cache/
+
+# SASS cache
+.sass-cache/
+
+# VS Code settings history
+.history/
+
+# log output
+logs/
+*.log
+
+# optional eslint cache
+.eslintcache
