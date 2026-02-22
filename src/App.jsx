@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import TodoList from './components/TodoList'
 import TodoForm from './components/TodoForm'
+import ProfilerOnRender from './components/ProfilerOnRender'
 
 function App() {
   const [todos, setTodos] = useState([])
@@ -31,12 +32,16 @@ function App() {
         <h1 className="mb-8 text-center text-3xl font-bold text-slate-800">
           Todo List
         </h1>
-        <TodoForm onAdd={addTodo} />
-        <TodoList
-          todos={todos}
-          onToggle={toggleTodo}
-          onDelete={deleteTodo}
-        />
+        <ProfilerOnRender id="TodoForm">
+          <TodoForm onAdd={addTodo} />
+        </ProfilerOnRender>
+        <ProfilerOnRender id="TodoList">
+          <TodoList
+            todos={todos}
+            onToggle={toggleTodo}
+            onDelete={deleteTodo}
+          />
+        </ProfilerOnRender>
       </div>
     </div>
   )
