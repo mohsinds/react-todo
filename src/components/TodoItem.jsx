@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 function TodoItem({ todo, onToggle, onDelete }) {
   return (
     <li
@@ -31,4 +33,4 @@ function TodoItem({ todo, onToggle, onDelete }) {
   )
 }
 
-export default TodoItem
+export default memo(TodoItem)

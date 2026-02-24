@@ -1,9 +1,13 @@
+import { memo } from 'react'
 import TodoItem from './TodoItem'
 
 function TodoList({ todos, onToggle, onDelete }) {
   if (todos.length === 0) {
     return (
-      <p className="rounded-lg bg-white py-8 text-center text-slate-500 shadow-sm">
+      <p
+        className="rounded-lg bg-white py-8 text-center text-slate-500 shadow-sm"
+        data-testid="todo-empty"
+      >
         No todos yet. Add one above!
       </p>
     )
@@ -23,4 +27,4 @@ function TodoList({ todos, onToggle, onDelete }) {
   )
 }
 
-export default TodoList
+export default memo(TodoList)

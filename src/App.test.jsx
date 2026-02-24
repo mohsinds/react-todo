@@ -1,22 +1,33 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 
+vi.mock('./api/mockTodos', () => ({
+  fetchTodos: () => Promise.resolve([]),
+}))
+
 describe('App', () => {
-  it('renders the todo list heading', () => {
-    render(<App />)
-    expect(screen.getByRole('heading', { name: /todo list/i })).toBeInTheDocument()
+  beforeEach(() => {
+    vi.clearAllMocks()
+    window.localStorage.clear()
   })
 
-  it('shows empty state when there are no todos', () => {
+  it('renders the todo list heading', async () => {
     render(<App />)
-    expect(screen.getByText(/no todos yet/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /todo list/i })).toBeInTheDocument()
+    await screen.findByTestId('todo-empty')
+  })
+
+  it('shows empty state when there are no todos', async () => {
+    render(<App />)
+    expect(await screen.findByText(/no todos yet/i)).toBeInTheDocument()
   })
 
   it('adds a todo when form is submitted', async () => {
     const user = userEvent.setup()
     render(<App />)
+    await screen.findByTestId('todo-empty')
     const input = screen.getByTestId('todo-input')
     const submit = screen.getByTestId('todo-submit')
 
@@ -30,6 +41,7 @@ describe('App', () => {
   it('clears input after adding a todo', async () => {
     const user = userEvent.setup()
     render(<App />)
+    await screen.findByTestId('todo-empty')
     const input = screen.getByTestId('todo-input')
     const submit = screen.getByTestId('todo-submit')
 
@@ -42,6 +54,7 @@ describe('App', () => {
   it('does not add empty todo', async () => {
     const user = userEvent.setup()
     render(<App />)
+    await screen.findByTestId('todo-empty')
     const submit = screen.getByTestId('todo-submit')
     await user.click(submit)
     expect(screen.getByText(/no todos yet/i)).toBeInTheDocument()
@@ -50,6 +63,7 @@ describe('App', () => {
   it('toggles todo completion when checkbox is clicked', async () => {
     const user = userEvent.setup()
     render(<App />)
+    await screen.findByTestId('todo-empty')
     const input = screen.getByTestId('todo-input')
     const submit = screen.getByTestId('todo-submit')
 
@@ -69,6 +83,7 @@ describe('App', () => {
   it('removes todo when delete is clicked', async () => {
     const user = userEvent.setup()
     render(<App />)
+    await screen.findByTestId('todo-empty')
     const input = screen.getByTestId('todo-input')
     const submit = screen.getByTestId('todo-submit')
 
@@ -87,6 +102,7 @@ describe('App', () => {
   it('adds multiple todos', async () => {
     const user = userEvent.setup()
     render(<App />)
+    await screen.findByTestId('todo-empty')
     const input = screen.getByTestId('todo-input')
     const submit = screen.getByTestId('todo-submit')
 
